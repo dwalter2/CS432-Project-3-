@@ -14,7 +14,8 @@ def da():
     query = { "$max" : "New Cases"}
     #v = db1.find( {"$max" : "$New Cases"})
     totalAveragePolarity = list(db2.aggregate([{"$group" : {"_id" : "null" , "ave" : {"$avg" : "$Polarity"}}}]))
-    print("The total average polarity for our dataset is: " + totalAveragePolarity[0]["ave"])
+    p1 = totalAveragePolarity[0]["ave"]
+    print("The total average polarity for our dataset is: " + str(p1))
     v = list(db1.find().sort([("New Cases",-1)]).limit(1))
     firstDate = v[0]["Date"]
     print("The date with the highest amount of new cases was: " + str(firstDate))
@@ -28,6 +29,7 @@ def da():
     secondDate = secondQuery[0]["Date"]
     print("The date with the lowest 7-day moving average excluding 0 was: " + str(secondDate))
     secavpol = list(db2.aggregate([ {"$match" :  { "Date"  : { "$eq" : secondDate }} }, {"$group" : {"_id" : "null" , "averagePol" : { "$avg" : "$Polarity"}}} ]))
-    print("The average polarity for that date was: " + secavpol[0]["averagePol"])
+    p2 = secavpol[0]["averagePol"]
+    print("The average polarity for that date was: " + str(p2))
 
 da()
