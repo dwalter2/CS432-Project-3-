@@ -13,8 +13,8 @@ def da():
     db2 = db["TwitterAnalysis"]
     query = { "$max" : "New Cases"}
     #v = db1.find( {"$max" : "$New Cases"})
-    #totalAveragePolarity = list(db2.aggregate([{"$group" : {"_id" : "null" , "ave" : {"$avg" : "$Polarity"}}}]))
-    #print("The total average polarity for our dataset is: " + totalAveragePolarity[0]["ave"])
+    totalAveragePolarity = list(db2.aggregate([{"$group" : {"_id" : "null" , "ave" : {"$avg" : "$Polarity"}}}]))
+    print("The total average polarity for our dataset is: " + totalAveragePolarity[0]["ave"])
     v = list(db1.find().sort([("New Cases",-1)]).limit(1))
     firstDate = v[0]["Date"]
     print("The date with the highest amount of new cases was: " + str(firstDate))
